@@ -1,5 +1,5 @@
 import time
-from get_random_country import get_random_country, human_format
+from random_country import get_random_country, human_format
 
 def print_random_country_info(country):
     print(country.name)

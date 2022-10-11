@@ -3,7 +3,7 @@ import drivers
 import time
 import schedule
 import requests
-from get_random_country import get_random_country, human_format
+from random_country import get_random_country, human_format
 
 display = drivers.Lcd()
 
