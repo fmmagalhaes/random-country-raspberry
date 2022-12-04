@@ -23,7 +23,7 @@ def get_country(country_code):
 
     return Country(country_data)
 
-def get_all_countries(): 
+def get_all_countries():
     response = requests.get(f"{BASE_URL}/all")
     countries = response.json()
 
@@ -33,7 +33,7 @@ def get_all_countries():
 def get_random_country():
     countries = get_all_countries()
     random_code = random.choice(countries).code
-    
+
     return get_country(random_code)
 
 # number formatter

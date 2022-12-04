@@ -1,8 +1,8 @@
 # https://github.com/the-raspberry-pi-guy/lcd
 import drivers
+import requests
 import time
 import schedule
-import requests
 from random_country import get_random_country, human_format
 
 display = drivers.Lcd()
@@ -43,8 +43,6 @@ try:
     schedule.every().day.at("08:00").do(safe_display_random_country_info)
 
     while True:
-        #safe_display_random_country_info()
-        #time.sleep(1)
         schedule.run_pending()
         time.sleep(1800) # 30 minutes
 
