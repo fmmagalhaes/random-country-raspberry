@@ -1,11 +1,13 @@
 import time
 from random_country import get_random_country, human_format
 
+
 def print_random_country_info(country):
     print(country.name)
     print(country.continent)
     print(country.capital)
     print(human_format(country.population))
+
 
 try:
     while True:

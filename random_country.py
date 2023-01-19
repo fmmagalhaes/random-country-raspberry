@@ -2,7 +2,8 @@
 import random
 import requests
 
-BASE_URL = "https://restcountries.com/v3";
+BASE_URL = "https://restcountries.com/v3"
+
 
 class Country:
     def __str__(self):
@@ -16,12 +17,16 @@ class Country:
         self.population = country_data.get("population")
         self.capital = capital[0] if capital != None else None
 
-# api wrappers
+
+"""api wrappers"""
+
+
 def get_country(country_code):
     response = requests.get(f"{BASE_URL}/alpha/{country_code}")
     country_data = response.json()[0]
 
     return Country(country_data)
+
 
 def get_all_countries():
     response = requests.get(f"{BASE_URL}/all")
@@ -30,15 +35,19 @@ def get_all_countries():
     all_countries = map(lambda country_data: Country(country_data), countries)
     return list(all_countries)
 
+
 def get_random_country():
     countries = get_all_countries()
     random_code = random.choice(countries).code
 
     return get_country(random_code)
 
-# number formatter
-# https://stackoverflow.com/questions/579310/formatting-long-numbers-as-strings-in-python
+
 def human_format(num):
+    """
+    number formatter
+    https://stackoverflow.com/questions/579310/formatting-long-numbers-as-strings-in-python
+    """
     num = float('{:.2g}'.format(num))
     magnitude = 0
     while abs(num) >= 1000:
