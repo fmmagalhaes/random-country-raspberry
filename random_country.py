@@ -2,7 +2,7 @@
 import random
 import requests
 
-BASE_URL = "https://restcountries.com/v3"
+BASE_URL = "https://restcountries.com/v3.1"
 
 
 class Country:
@@ -15,21 +15,21 @@ class Country:
         self.name = country_data.get("name").get("common")
         self.continent = country_data.get("continents")[0]
         self.population = country_data.get("population")
-        self.capital = capital[0] if capital != None else None
+        self.capital = capital[0] if capital and len(capital) > 0 else None
 
 
 """api wrappers"""
 
 
 def get_country(country_code):
-    response = requests.get(f"{BASE_URL}/alpha/{country_code}")
-    country_data = response.json()[0]
+    response = requests.get(f"{BASE_URL}/alpha/{country_code}?fields=name,cca3,capital,continents,population")
+    country_data = response.json()
 
     return Country(country_data)
 
 
 def get_all_countries():
-    response = requests.get(f"{BASE_URL}/all")
+    response = requests.get(f"{BASE_URL}/all?fields=name,cca3,capital,continents,population")
     countries = response.json()
 
     all_countries = map(lambda country_data: Country(country_data), countries)
