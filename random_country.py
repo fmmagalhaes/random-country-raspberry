@@ -4,6 +4,9 @@ import requests
 
 BASE_URL = "https://restcountries.com/v3.1"
 
+# Cache for country codes
+_country_codes = None
+
 
 class Country:
     def __str__(self):
@@ -28,17 +31,17 @@ def get_country(country_code):
     return Country(country_data)
 
 
-def get_all_countries():
-    response = requests.get(f"{BASE_URL}/all?fields=name,cca3,capital,continents,population")
-    countries = response.json()
-
-    all_countries = map(lambda country_data: Country(country_data), countries)
-    return list(all_countries)
+def get_all_country_codes():
+    global _country_codes
+    if _country_codes is None:
+        response = requests.get(f"{BASE_URL}/all?fields=cca3")
+        _country_codes = [country["cca3"] for country in response.json()]
+    return _country_codes
 
 
 def get_random_country():
-    countries = get_all_countries()
-    random_code = random.choice(countries).code
+    country_codes = get_all_country_codes()
+    random_code = random.choice(country_codes)
 
     return get_country(random_code)
 
